@@ -1,0 +1,16 @@
+name: DankTech2
+author: Sefiraat
+description: An Addon to Slimefun4 that adds new forms of mass-storage backpacks.
+main: io.github.sefiraat.danktech2.DankTech2
+website: https://github.com/Sefiraat/DankTech2
+version: ${project.version}
+api-version: 1.17
+depend:
+  - Slimefun
+softdepend:
+  - mcMMO
+commands:
+  crystamaehistoria:
+    description: /DankTech
+    usage: /DankTech <sub>
+    aliases: [ dt, dank ]
