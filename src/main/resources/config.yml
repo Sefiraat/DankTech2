@@ -1,1 +1,7 @@
 auto-update: true
+world_blacklist_open:
+  - ExampleWorld
+world_blacklist_build:
+  - ExampleWorld
+world_blacklist_pickup:
+  - ExampleWorld

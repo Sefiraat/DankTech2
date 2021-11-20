@@ -2,6 +2,7 @@ package io.github.sefiraat.danktech2.slimefun;
 
 import io.github.sefiraat.danktech2.DankTech2;
 import io.github.sefiraat.danktech2.theme.ThemeType;
+import io.github.sefiraat.danktech2.utils.Skulls;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
@@ -10,6 +11,7 @@ import io.github.thebusybiscuit.slimefun4.implementation.items.blocks.Unplaceabl
 import lombok.Getter;
 import lombok.experimental.UtilityClass;
 import org.bukkit.Material;
+import org.bukkit.block.Skull;
 import org.bukkit.inventory.ItemStack;
 
 @UtilityClass
@@ -35,8 +37,7 @@ public class Materials {
     private static SlimefunItem dankCell9;
 
     public static void setup() {
-
-        DankTech2 plugin = DankTech2.getInstance();
+        final DankTech2 plugin = DankTech2.getInstance();
 
         final SlimefunItemStack cell1Core = SlimefunItems.SYNTHETIC_DIAMOND;
         final ItemStack cell1Material = new ItemStack(Material.IRON_INGOT);
@@ -54,7 +55,7 @@ public class Materials {
             ItemGroups.MATERIALS,
             ThemeType.themedSlimefunItemStack(
                 "DK2_CELL_1",
-                new ItemStack(Material.GLOWSTONE_DUST),
+                Skulls.CELL_1.getPlayerHead(),
                 ThemeType.CRAFTING,
                 "Dank Cell - Tier 1",
                 "A Dank Cell serves to provide a way",
@@ -74,7 +75,7 @@ public class Materials {
             ItemGroups.MATERIALS,
             ThemeType.themedSlimefunItemStack(
                 "DK2_CELL_2",
-                new ItemStack(Material.GLOWSTONE_DUST),
+                Skulls.CELL_2.getPlayerHead(),
                 ThemeType.CRAFTING,
                 "Dank Cell - Tier 2",
                 "A Dank Cell serves to provide a way",
@@ -94,7 +95,7 @@ public class Materials {
             ItemGroups.MATERIALS,
             ThemeType.themedSlimefunItemStack(
                 "DK3_CELL_3",
-                new ItemStack(Material.GLOWSTONE_DUST),
+                Skulls.CELL_3.getPlayerHead(),
                 ThemeType.CRAFTING,
                 "Dank Cell - Tier 3",
                 "A Dank Cell serves to provide a way",
@@ -114,7 +115,7 @@ public class Materials {
             ItemGroups.MATERIALS,
             ThemeType.themedSlimefunItemStack(
                 "DK4_CELL_4",
-                new ItemStack(Material.GLOWSTONE_DUST),
+                Skulls.CELL_4.getPlayerHead(),
                 ThemeType.CRAFTING,
                 "Dank Cell - Tier 4",
                 "A Dank Cell serves to provide a way",
@@ -134,7 +135,7 @@ public class Materials {
             ItemGroups.MATERIALS,
             ThemeType.themedSlimefunItemStack(
                 "DK5_CELL_5",
-                new ItemStack(Material.GLOWSTONE_DUST),
+                Skulls.CELL_5.getPlayerHead(),
                 ThemeType.CRAFTING,
                 "Dank Cell - Tier 5",
                 "A Dank Cell serves to provide a way",
@@ -154,7 +155,7 @@ public class Materials {
             ItemGroups.MATERIALS,
             ThemeType.themedSlimefunItemStack(
                 "DK6_CELL_6",
-                new ItemStack(Material.GLOWSTONE_DUST),
+                Skulls.CELL_6.getPlayerHead(),
                 ThemeType.CRAFTING,
                 "Dank Cell - Tier 6",
                 "A Dank Cell serves to provide a way",
@@ -174,7 +175,7 @@ public class Materials {
             ItemGroups.MATERIALS,
             ThemeType.themedSlimefunItemStack(
                 "DK7_CELL_7",
-                new ItemStack(Material.GLOWSTONE_DUST),
+                Skulls.CELL_7.getPlayerHead(),
                 ThemeType.CRAFTING,
                 "Dank Cell - Tier 7",
                 "A Dank Cell serves to provide a way",
@@ -194,7 +195,7 @@ public class Materials {
             ItemGroups.MATERIALS,
             ThemeType.themedSlimefunItemStack(
                 "DK8_CELL_8",
-                new ItemStack(Material.GLOWSTONE_DUST),
+                Skulls.CELL_8.getPlayerHead(),
                 ThemeType.CRAFTING,
                 "Dank Cell - Tier 8",
                 "A Dank Cell serves to provide a way",
@@ -214,7 +215,7 @@ public class Materials {
             ItemGroups.MATERIALS,
             ThemeType.themedSlimefunItemStack(
                 "DK9_CELL_9",
-                new ItemStack(Material.GLOWSTONE_DUST),
+                Skulls.CELL_9.getPlayerHead(),
                 ThemeType.CRAFTING,
                 "Dank Cell - Tier ★",
                 "A Dank Cell serves to provide a way",

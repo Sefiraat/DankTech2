@@ -1,10 +1,13 @@
 package io.github.sefiraat.danktech2;
 
 import io.github.sefiraat.danktech2.slimefun.ItemGroups;
+import io.github.sefiraat.danktech2.slimefun.Machines;
 import io.github.sefiraat.danktech2.slimefun.Materials;
+import io.github.sefiraat.danktech2.slimefun.Packs;
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.updater.GitHubBuildsUpdater;
 import lombok.Getter;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -19,7 +22,11 @@ public class DankTech2 extends JavaPlugin implements SlimefunAddon {
     private final String username;
     private final String repo;
     private final String branch;
+
     private GitHubBuildsUpdater updater;
+
+    private ConfigManager configManager;
+    private ListenerManager listenerManager;
 
     public DankTech2() {
         this.username = "Sefiraat";
@@ -39,6 +46,9 @@ public class DankTech2 extends JavaPlugin implements SlimefunAddon {
 
         setupSlimefun();
 
+        this.configManager = new ConfigManager();
+        this.listenerManager = new ListenerManager();
+
     }
 
     public void tryUpdate() {
@@ -54,6 +64,8 @@ public class DankTech2 extends JavaPlugin implements SlimefunAddon {
     private void setupSlimefun() {
         ItemGroups.setup();
         Materials.setup();
+        Packs.setup();
+        Machines.setup();
     }
 
     @NotNull
@@ -66,6 +78,10 @@ public class DankTech2 extends JavaPlugin implements SlimefunAddon {
     @Override
     public String getBugTrackerURL() {
         return MessageFormat.format("https://github.com/{0}/{1}/issues/", this.username, this.repo);
+    }
+
+    public static PluginManager getPluginManager() {
+        return DankTech2.getInstance().getServer().getPluginManager();
     }
 
 }

@@ -33,15 +33,15 @@ public enum ThemeType {
     DROP(ChatColor.of("#bf307f"), "Rare Drop"),
     BASE(ChatColor.of("#9e9e9e"), "Base Resource"),
     INFO(ChatColor.of("#21588f"), "Information"),
-    T1("", "Tier 1"),
-    T2("", "Tier 2"),
-    T3("", "Tier 3"),
-    T4("", "Tier 4"),
-    T5("", "Tier 5"),
-    T6("", "Tier 6"),
-    T7("", "Tier 7"),
-    T8("", "Tier 8"),
-    T9("", "Tier 9");
+    T1(ChatColor.of("#deebff"), "Tier 1"),
+    T2(ChatColor.of("#b8b8b8"), "Tier 2"),
+    T3(ChatColor.of("#b5ff9e"), "Tier 3"),
+    T4(ChatColor.of("#34a112"), "Tier 4"),
+    T5(ChatColor.of("#467dcf"), "Tier 5"),
+    T6(ChatColor.of("#083578"), "Tier 6"),
+    T7(ChatColor.of("#ec8cff"), "Tier 7"),
+    T8(ChatColor.of("#b70bd9"), "Tier 8"),
+    T9(ChatColor.of("#a60000"), "Tier 9");
 
     @Nonnull
     protected static final List<String> EGG_NAMES = Arrays.asList(
