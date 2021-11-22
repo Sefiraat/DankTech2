@@ -10,7 +10,7 @@ depend:
 softdepend:
   - mcMMO
 commands:
-  crystamaehistoria:
-    description: /DankTech
-    usage: /DankTech <sub>
+  danktech2:
+    description: /DankTech2
+    usage: /DankTech2 <sub>
     aliases: [ dt, dank ]

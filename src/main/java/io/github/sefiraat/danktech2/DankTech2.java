@@ -25,8 +25,12 @@ public class DankTech2 extends JavaPlugin implements SlimefunAddon {
 
     private GitHubBuildsUpdater updater;
 
+    @Getter
     private ConfigManager configManager;
+    @Getter
     private ListenerManager listenerManager;
+    @Getter
+    private SupportedPluginManager supportedPlugins;
 
     public DankTech2() {
         this.username = "Sefiraat";
@@ -48,6 +52,7 @@ public class DankTech2 extends JavaPlugin implements SlimefunAddon {
 
         this.configManager = new ConfigManager();
         this.listenerManager = new ListenerManager();
+        this.supportedPlugins = new SupportedPluginManager();
 
     }
 
@@ -82,6 +87,10 @@ public class DankTech2 extends JavaPlugin implements SlimefunAddon {
 
     public static PluginManager getPluginManager() {
         return DankTech2.getInstance().getServer().getPluginManager();
+    }
+
+    public static SupportedPluginManager getSupportedPluginManager() {
+        return DankTech2.getInstance().getSupportedPlugins();
     }
 
 }

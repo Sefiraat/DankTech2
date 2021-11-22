@@ -1,6 +1,7 @@
 package io.github.sefiraat.danktech2.slimefun;
 
 import io.github.sefiraat.danktech2.DankTech2;
+import io.github.sefiraat.danktech2.slimefun.machines.DankCrafter;
 import io.github.sefiraat.danktech2.slimefun.packs.DankPack;
 import io.github.sefiraat.danktech2.slimefun.packs.TrashPack;
 import io.github.sefiraat.danktech2.theme.ThemeType;
@@ -54,7 +55,8 @@ public class Packs {
     public static void setup() {
         final DankTech2 plugin = DankTech2.getInstance();
 
-        final ItemStack packCore = new ItemStack(Material.NETHERITE_INGOT);
+        final ItemStack packCore = new ItemStack(Material.NETHERITE_BLOCK);
+        final ItemStack trashCore = new ItemStack(Material.NETHERITE_INGOT);
         final ItemStack cell1 = Materials.getDankCell1().getItem();
         final ItemStack cell2 = Materials.getDankCell2().getItem();
         final ItemStack cell3 = Materials.getDankCell3().getItem();
@@ -75,7 +77,7 @@ public class Packs {
                 "A Dank Pack can hold many items",
                 "inside it."
             ),
-            RecipeType.ENHANCED_CRAFTING_TABLE,
+            DankCrafter.TYPE,
             new ItemStack[]{
                 cell1, cell1, cell1,
                 cell1, packCore, cell1,
@@ -95,14 +97,14 @@ public class Packs {
                 "A Dank Pack can hold many items",
                 "inside it."
             ),
-            RecipeType.ENHANCED_CRAFTING_TABLE,
+            DankCrafter.TYPE,
             new ItemStack[]{
                 cell2, cell2, cell2,
                 cell2, dankPack1.getItem(), cell2,
                 cell2, cell2, cell2,
             },
             2,
-            256
+            1024
         );
 
         dankPack3 = new DankPack(
@@ -115,14 +117,14 @@ public class Packs {
                 "A Dank Pack can hold many items",
                 "inside it."
             ),
-            RecipeType.ENHANCED_CRAFTING_TABLE,
+            DankCrafter.TYPE,
             new ItemStack[]{
                 cell3, cell3, cell3,
                 cell3, dankPack2.getItem(), cell3,
                 cell3, cell3, cell3,
             },
             3,
-            256
+            2048
         );
 
         dankPack4 = new DankPack(
@@ -135,14 +137,14 @@ public class Packs {
                 "A Dank Pack can hold many items",
                 "inside it."
             ),
-            RecipeType.ENHANCED_CRAFTING_TABLE,
+            DankCrafter.TYPE,
             new ItemStack[]{
                 cell4, cell4, cell4,
                 cell4, dankPack3.getItem(), cell4,
                 cell4, cell4, cell4,
             },
             4,
-            256
+            4096
         );
 
         dankPack5 = new DankPack(
@@ -155,14 +157,14 @@ public class Packs {
                 "A Dank Pack can hold many items",
                 "inside it."
             ),
-            RecipeType.ENHANCED_CRAFTING_TABLE,
+            DankCrafter.TYPE,
             new ItemStack[]{
                 cell5, cell5, cell5,
                 cell5, dankPack4.getItem(), cell5,
                 cell5, cell5, cell5,
             },
             5,
-            256
+            8192
         );
 
         dankPack6 = new DankPack(
@@ -175,14 +177,14 @@ public class Packs {
                 "A Dank Pack can hold many items",
                 "inside it."
             ),
-            RecipeType.ENHANCED_CRAFTING_TABLE,
+            DankCrafter.TYPE,
             new ItemStack[]{
                 cell6, cell6, cell6,
                 cell6, dankPack5.getItem(), cell6,
                 cell6, cell6, cell6,
             },
             6,
-            256
+            16384
         );
 
         dankPack7 = new DankPack(
@@ -195,14 +197,14 @@ public class Packs {
                 "A Dank Pack can hold many items",
                 "inside it."
             ),
-            RecipeType.ENHANCED_CRAFTING_TABLE,
+            DankCrafter.TYPE,
             new ItemStack[]{
                 cell7, cell7, cell7,
                 cell7, dankPack6.getItem(), cell7,
                 cell7, cell7, cell7,
             },
             7,
-            256
+            65536
         );
 
         dankPack8 = new DankPack(
@@ -215,14 +217,14 @@ public class Packs {
                 "A Dank Pack can hold many items",
                 "inside it."
             ),
-            RecipeType.ENHANCED_CRAFTING_TABLE,
+            DankCrafter.TYPE,
             new ItemStack[]{
                 cell8, cell8, cell8,
                 cell8, dankPack7.getItem(), cell8,
                 cell8, cell8, cell8,
             },
             8,
-            256
+            524288
         );
 
         dankPack9 = new DankPack(
@@ -235,7 +237,7 @@ public class Packs {
                 "A Dank Pack can hold many items",
                 "inside it."
             ),
-            RecipeType.ENHANCED_CRAFTING_TABLE,
+            DankCrafter.TYPE,
             new ItemStack[]{
                 cell9, cell9, cell9,
                 cell9, dankPack8.getItem(), cell9,
@@ -243,6 +245,177 @@ public class Packs {
             },
             9,
             Integer.MAX_VALUE
+        );
+
+        trashPack1 = new TrashPack(
+            ItemGroups.PACKS,
+            ThemeType.themedSlimefunItemStack(
+                "DK2_TRASH_1",
+                Skulls.TRASH_1.getPlayerHead(),
+                ThemeType.T1,
+                "Trash Pack",
+                "A Dank Pack can hold many items",
+                "inside it."
+            ),
+            DankCrafter.TYPE,
+            new ItemStack[]{
+                cell1, cell1, cell1,
+                cell1, trashCore, cell1,
+                cell1, cell1, cell1,
+            },
+            1
+        );
+
+        trashPack2 = new TrashPack(
+            ItemGroups.PACKS,
+            ThemeType.themedSlimefunItemStack(
+                "DK2_TRASH_2",
+                Skulls.TRASH_2.getPlayerHead(),
+                ThemeType.T2,
+                "Trash Pack",
+                "A Dank Pack can hold many items",
+                "inside it."
+            ),
+            DankCrafter.TYPE,
+            new ItemStack[]{
+                cell2, cell2, cell2,
+                cell2, trashPack1.getItem(), cell2,
+                cell2, cell2, cell2,
+            },
+            2
+        );
+
+        trashPack3 = new TrashPack(
+            ItemGroups.PACKS,
+            ThemeType.themedSlimefunItemStack(
+                "DK3_TRASH_3",
+                Skulls.TRASH_3.getPlayerHead(),
+                ThemeType.T3,
+                "Trash Pack",
+                "A Dank Pack can hold many items",
+                "inside it."
+            ),
+            DankCrafter.TYPE,
+            new ItemStack[]{
+                cell3, cell3, cell3,
+                cell3, trashPack2.getItem(), cell3,
+                cell3, cell3, cell3,
+            },
+            3
+        );
+
+        trashPack4 = new TrashPack(
+            ItemGroups.PACKS,
+            ThemeType.themedSlimefunItemStack(
+                "DK4_TRASH_4",
+                Skulls.TRASH_4.getPlayerHead(),
+                ThemeType.T4,
+                "Trash Pack",
+                "A Dank Pack can hold many items",
+                "inside it."
+            ),
+            DankCrafter.TYPE,
+            new ItemStack[]{
+                cell4, cell4, cell4,
+                cell4, trashPack3.getItem(), cell4,
+                cell4, cell4, cell4,
+            },
+            4
+        );
+
+        trashPack5 = new TrashPack(
+            ItemGroups.PACKS,
+            ThemeType.themedSlimefunItemStack(
+                "DK5_TRASH_5",
+                Skulls.TRASH_5.getPlayerHead(),
+                ThemeType.T5,
+                "Trash Pack",
+                "A Dank Pack can hold many items",
+                "inside it."
+            ),
+            DankCrafter.TYPE,
+            new ItemStack[]{
+                cell5, cell5, cell5,
+                cell5, trashPack4.getItem(), cell5,
+                cell5, cell5, cell5,
+            },
+            5
+        );
+
+        trashPack6 = new TrashPack(
+            ItemGroups.PACKS,
+            ThemeType.themedSlimefunItemStack(
+                "DK6_TRASH_6",
+                Skulls.TRASH_6.getPlayerHead(),
+                ThemeType.T6,
+                "Trash Pack",
+                "A Dank Pack can hold many items",
+                "inside it."
+            ),
+            DankCrafter.TYPE,
+            new ItemStack[]{
+                cell6, cell6, cell6,
+                cell6, trashPack5.getItem(), cell6,
+                cell6, cell6, cell6,
+            },
+            6
+        );
+
+        trashPack7 = new TrashPack(
+            ItemGroups.PACKS,
+            ThemeType.themedSlimefunItemStack(
+                "DK7_TRASH_7",
+                Skulls.TRASH_7.getPlayerHead(),
+                ThemeType.T7,
+                "Trash Pack",
+                "A Dank Pack can hold many items",
+                "inside it."
+            ),
+            DankCrafter.TYPE,
+            new ItemStack[]{
+                cell7, cell7, cell7,
+                cell7, trashPack6.getItem(), cell7,
+                cell7, cell7, cell7,
+            },
+            7
+        );
+
+        trashPack8 = new TrashPack(
+            ItemGroups.PACKS,
+            ThemeType.themedSlimefunItemStack(
+                "DK8_TRASH_8",
+                Skulls.TRASH_8.getPlayerHead(),
+                ThemeType.T8,
+                "Trash Pack",
+                "A Dank Pack can hold many items",
+                "inside it."
+            ),
+            DankCrafter.TYPE,
+            new ItemStack[]{
+                cell8, cell8, cell8,
+                cell8, trashPack7.getItem(), cell8,
+                cell8, cell8, cell8,
+            },
+            8
+        );
+
+        trashPack9 = new TrashPack(
+            ItemGroups.PACKS,
+            ThemeType.themedSlimefunItemStack(
+                "DK9_TRASH_9",
+                Skulls.TRASH_9.getPlayerHead(),
+                ThemeType.T9,
+                "Trash Pack",
+                "A Dank Pack can hold many items",
+                "inside it."
+            ),
+            DankCrafter.TYPE,
+            new ItemStack[]{
+                cell9, cell9, cell9,
+                cell9, trashPack8.getItem(), cell9,
+                cell9, cell9, cell9,
+            },
+            9
         );
 
         // Slimefun Registry
@@ -255,6 +428,14 @@ public class Packs {
         dankPack7.register(plugin);
         dankPack8.register(plugin);
         dankPack9.register(plugin);
+        trashPack1.register(plugin);
+        trashPack2.register(plugin);
+        trashPack3.register(plugin);
+        trashPack4.register(plugin);
+        trashPack5.register(plugin);
+        trashPack6.register(plugin);
+        trashPack7.register(plugin);
+        trashPack8.register(plugin);
+        trashPack9.register(plugin);
     }
-
 }
