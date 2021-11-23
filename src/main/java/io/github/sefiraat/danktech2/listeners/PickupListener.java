@@ -6,25 +6,32 @@ import io.github.sefiraat.danktech2.core.DankPackInstance;
 import io.github.sefiraat.danktech2.core.TrashPackInstance;
 import io.github.sefiraat.danktech2.slimefun.packs.DankPack;
 import io.github.sefiraat.danktech2.slimefun.packs.TrashPack;
+import io.github.sefiraat.danktech2.theme.ThemeType;
 import io.github.sefiraat.danktech2.utils.Keys;
 import io.github.sefiraat.danktech2.utils.ParticleUtils;
 import io.github.sefiraat.danktech2.utils.datatypes.DataTypeMethods;
 import io.github.sefiraat.danktech2.utils.datatypes.PersistentDankInstanceType;
 import io.github.sefiraat.danktech2.utils.datatypes.PersistentTrashInstanceType;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
+import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Color;
 import org.bukkit.Particle;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.text.MessageFormat;
+
 public class PickupListener implements Listener {
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
     public void onItemPickup(EntityPickupItemEvent e) {
         if (e.getEntity() instanceof Player) {
             final Player player = (Player) e.getEntity();
@@ -40,7 +47,7 @@ public class PickupListener implements Listener {
 
                 // Try to pick up the item into a dank first
                 if (!item.isDead() && slimefunItem instanceof DankPack) {
-                    tryPickupItem(itemStack, item);
+                    tryPickupItem(player, itemStack, item);
                 }
                 // Then trash packs for voiding the rest
                 if (!item.isDead() && slimefunItem instanceof TrashPack) {
@@ -55,12 +62,21 @@ public class PickupListener implements Listener {
         }
     }
 
-    public void tryPickupItem(ItemStack pack, Item item) {
+    public void tryPickupItem(Player player, ItemStack pack, Item item) {
         final DankPack dankPack = (DankPack) SlimefunItem.getByItem(pack);
         final ItemMeta packMeta = pack.getItemMeta();
 
         final ItemStack itemStack = item.getItemStack();
         final DankPackInstance instance = DataTypeMethods.getCustom(packMeta, Keys.DANK_INSTANCE, PersistentDankInstanceType.TYPE);
+
+        if (ConfigManager.getInstance().checkDankDeletion(instance.getId())) {
+            player.sendMessage(MessageFormat.format(
+                "{0}A Dank Pack you have has been duped or deleted. Removing",
+                ThemeType.ERROR.getColor())
+            );
+            pack.setAmount(0);
+            return;
+        }
 
         for (int i = 0; i < dankPack.getSlots(); i++) {
             final ItemStack testStack = instance.getItem(i);
@@ -96,6 +112,7 @@ public class PickupListener implements Listener {
                 item.remove();
                 DataTypeMethods.setCustom(packMeta, Keys.DANK_INSTANCE, PersistentDankInstanceType.TYPE, instance);
                 pack.setItemMeta(packMeta);
+                ConfigManager.getInstance().saveDankPack(pack);
                 return;
             }
         }

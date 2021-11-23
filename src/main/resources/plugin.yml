@@ -11,6 +11,6 @@ softdepend:
   - mcMMO
 commands:
   danktech2:
-    description: /DankTech2
-    usage: /DankTech2 <sub>
+    description: /danktech2
+    usage: /danktech2 <sub>
     aliases: [ dt, dank ]

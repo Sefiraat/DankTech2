@@ -2,6 +2,7 @@ package io.github.sefiraat.danktech2.slimefun.machines;
 
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Splitter;
+import io.github.sefiraat.danktech2.ConfigManager;
 import io.github.sefiraat.danktech2.DankTech2;
 import io.github.sefiraat.danktech2.core.DankPackInstance;
 import io.github.sefiraat.danktech2.slimefun.Machines;
@@ -25,6 +26,8 @@ import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
 import me.mrCookieSlime.Slimefun.api.item_transport.ItemTransportFlow;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -35,6 +38,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -84,6 +88,11 @@ public class DankUnloader extends SlimefunItem {
                     final DankPack dankPack = (DankPack) slimefunItem;
                     final DankPackInstance dankPackInstance = DataTypeMethods.getCustom(inputMeta, Keys.DANK_INSTANCE, PersistentDankInstanceType.TYPE);
                     final Boolean[] booleans = caches.get(blockMenu.getLocation());
+
+                    if (ConfigManager.getInstance().checkDankDeletion(dankPackInstance.getId())) {
+                        inputItem.setAmount(0);
+                        return;
+                    }
 
                     for (int i = 0; i < dankPack.getSlots(); i++) {
                         if (Boolean.FALSE.equals(booleans[i])) {

@@ -18,6 +18,9 @@ public class DankPackInstance {
     @Getter
     @Setter
     private int[] amounts = new int[9];
+    @Getter
+    @Setter
+    private String lastUser = "Unknown";
 
     public DankPackInstance(long id, int tier) {
         this.tier = tier;

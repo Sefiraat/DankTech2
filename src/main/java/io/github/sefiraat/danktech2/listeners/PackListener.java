@@ -1,5 +1,6 @@
 package io.github.sefiraat.danktech2.listeners;
 
+import io.github.sefiraat.danktech2.ConfigManager;
 import io.github.sefiraat.danktech2.core.DankGUI;
 import io.github.sefiraat.danktech2.core.DankPackInstance;
 import io.github.sefiraat.danktech2.core.TrashGUI;
@@ -42,8 +43,19 @@ public class PackListener implements Listener {
 
         // Check if a dank/trash pack is in the main hand
         if (slimefunItem instanceof DankPack) {
+            event.setCancelled(true);
+
             final ItemMeta itemMeta = heldItem.getItemMeta();
             final DankPackInstance dankPackInstance = DataTypeMethods.getCustom(itemMeta, Keys.DANK_INSTANCE, PersistentDankInstanceType.TYPE);
+
+            if (ConfigManager.getInstance().checkDankDeletion(dankPackInstance.getId())) {
+                player.sendMessage(MessageFormat.format(
+                    "{0}Dank Pack has been duped or deleted. Removing",
+                    ThemeType.ERROR.getColor())
+                );
+                heldItem.setAmount(0);
+                return;
+            }
 
             if (player.isSneaking()) {
                 // Sneaking = Building or Changing Slots
@@ -75,7 +87,7 @@ public class PackListener implements Listener {
             TextComponent.fromLegacyText(MessageFormat.format(
                 "{0}Selected slot: [{1}] - [{2}]",
                 ThemeType.SUCCESS.getColor(),
-                slot,
+                slot + 1,
                 name)
             )
         );
@@ -85,7 +97,7 @@ public class PackListener implements Listener {
         int selectedSlot = DataTypeMethods.getSelectedSlot(heldItem);
         int amount = dankPackInstance.getAmount(selectedSlot);
         ItemStack stackToPlace = dankPackInstance.getItem(selectedSlot);
-        if (amount <= 1 ) {
+        if (amount <= 1) {
             player.spigot().sendMessage(
                 ChatMessageType.ACTION_BAR,
                 TextComponent.fromLegacyText(MessageFormat.format(
@@ -114,6 +126,7 @@ public class PackListener implements Listener {
                     dankPackInstance
                 );
                 heldItem.setItemMeta(itemMeta);
+                ConfigManager.getInstance().saveDankPack(heldItem);
             }
         }
     }

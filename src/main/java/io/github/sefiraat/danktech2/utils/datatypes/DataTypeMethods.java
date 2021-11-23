@@ -91,7 +91,7 @@ public class DataTypeMethods {
         DankPack dankPack = (DankPack) SlimefunItem.getByItem(packStack);
         if (dankPack != null) {
             int slot = getSelectedSlot(packStack);
-            if (slot >= dankPack.getSlots()) {
+            if (slot + 1 >= dankPack.getSlots()) {
                 slot = 0;
             } else {
                 slot++;

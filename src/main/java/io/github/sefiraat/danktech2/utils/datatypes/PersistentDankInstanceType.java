@@ -27,6 +27,7 @@ public class PersistentDankInstanceType implements PersistentDataType<Persistent
     public static final NamespacedKey DANK_AMOUNTS = Keys.newKey("dank_amounts");
     public static final NamespacedKey DANK_TIER = Keys.newKey("dank_tier");
     public static final NamespacedKey DANK_ID = Keys.newKey("dank_id");
+    public static final NamespacedKey DANK_USER = Keys.newKey("dank_user");
 
     @Override
     @Nonnull
@@ -48,6 +49,7 @@ public class PersistentDankInstanceType implements PersistentDataType<Persistent
         container.set(DANK_AMOUNTS, DataType.INTEGER_ARRAY, complex.getAmounts());
         container.set(DANK_TIER, DataType.INTEGER, complex.getTier());
         container.set(DANK_ID, DataType.LONG, complex.getId());
+        container.set(DANK_USER, DataType.STRING, complex.getLastUser());
         return container;
     }
 
@@ -55,10 +57,12 @@ public class PersistentDankInstanceType implements PersistentDataType<Persistent
     @Nonnull
     public DankPackInstance fromPrimitive(@Nonnull PersistentDataContainer primitive, @Nonnull PersistentDataAdapterContext context) {
         long id = primitive.get(DANK_ID, DataType.LONG);
+        String name = primitive.get(DANK_USER, DataType.STRING);
         int tier = primitive.get(DANK_TIER, DataType.INTEGER);
         ItemStack[] items = primitive.get(DANK_ITEMS, DataType.ITEM_STACK_ARRAY);
         int[] amounts = primitive.get(DANK_AMOUNTS, DataType.INTEGER_ARRAY);
         DankPackInstance instance = new DankPackInstance(id, tier);
+        instance.setLastUser(name);
         instance.setItems(items);
         instance.setAmounts(amounts);
         return instance;

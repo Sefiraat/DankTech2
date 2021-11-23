@@ -1,15 +1,24 @@
 package io.github.sefiraat.danktech2;
 
+import io.github.sefiraat.danktech2.core.DankPackInstance;
+import io.github.sefiraat.danktech2.slimefun.packs.DankPack;
+import io.github.sefiraat.danktech2.utils.Keys;
+import io.github.sefiraat.danktech2.utils.datatypes.DataTypeMethods;
+import io.github.sefiraat.danktech2.utils.datatypes.PersistentDankInstanceType;
+import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.data.persistent.PersistentDataAPI;
 import lombok.Getter;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.inventory.ItemStack;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ConfigManager {
@@ -59,6 +68,7 @@ public class ConfigManager {
     public void saveAll() {
         DankTech2.getInstance().getLogger().info("DankTech2 saving data.");
         DankTech2.getInstance().saveConfig();
+        saveConfig(dankPacks, "dank_packs.yml");
     }
 
     private void saveConfig(FileConfiguration configuration, String filename) {
@@ -68,6 +78,31 @@ public class ConfigManager {
         } catch (IOException exception) {
             exception.printStackTrace();
         }
+    }
+
+    public void saveDankPack(ItemStack itemStack) {
+        SlimefunItem slimefunItem = SlimefunItem.getByItem(itemStack);
+        if (slimefunItem instanceof DankPack) {
+            DankPackInstance instance = DataTypeMethods.getCustom(itemStack.getItemMeta(), Keys.DANK_INSTANCE, PersistentDankInstanceType.TYPE);
+            dankPacks.set(instance.getId() + ".last_user", instance.getLastUser());
+            dankPacks.set(instance.getId() + ".item", itemStack);
+        }
+    }
+
+    public void deletePack(long id) {
+        dankPacks.set(String.valueOf(id), null);
+    }
+
+    public boolean checkDankDeletion(long id) {
+        return dankPacks.getConfigurationSection(String.valueOf(id)) == null;
+    }
+
+    public List<ItemStack> getAllPacks() {
+        List<ItemStack> itemStackList = new ArrayList<>();
+        for (String s : dankPacks.getKeys(false)) {
+            itemStackList.add(dankPacks.getItemStack(s + ".item"));
+        }
+        return itemStackList;
     }
 
     public static List<String> getBlacklistedWorldsPickup() {

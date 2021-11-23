@@ -1,12 +1,12 @@
 package io.github.sefiraat.danktech2;
 
+import io.github.sefiraat.danktech2.commands.DankTechMain;
 import io.github.sefiraat.danktech2.slimefun.ItemGroups;
 import io.github.sefiraat.danktech2.slimefun.Machines;
 import io.github.sefiraat.danktech2.slimefun.Materials;
 import io.github.sefiraat.danktech2.slimefun.Packs;
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.updater.GitHubBuildsUpdater;
-import lombok.Getter;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
@@ -16,7 +16,6 @@ import java.text.MessageFormat;
 
 public class DankTech2 extends JavaPlugin implements SlimefunAddon {
 
-    @Getter
     private static DankTech2 instance;
 
     private final String username;
@@ -25,12 +24,10 @@ public class DankTech2 extends JavaPlugin implements SlimefunAddon {
 
     private GitHubBuildsUpdater updater;
 
-    @Getter
     private ConfigManager configManager;
-    @Getter
     private ListenerManager listenerManager;
-    @Getter
-    private SupportedPluginManager supportedPlugins;
+    private SupportedPluginManager supportedPluginManager;
+    private RunnableManager runnableManager;
 
     public DankTech2() {
         this.username = "Sefiraat";
@@ -52,8 +49,16 @@ public class DankTech2 extends JavaPlugin implements SlimefunAddon {
 
         this.configManager = new ConfigManager();
         this.listenerManager = new ListenerManager();
-        this.supportedPlugins = new SupportedPluginManager();
+        this.supportedPluginManager = new SupportedPluginManager();
+        this.runnableManager = new RunnableManager();
 
+        this.getCommand("danktech2").setExecutor(new DankTechMain());
+
+    }
+
+    @Override
+    public void onDisable() {
+        this.configManager.saveAll();
     }
 
     public void tryUpdate() {
@@ -85,12 +90,22 @@ public class DankTech2 extends JavaPlugin implements SlimefunAddon {
         return MessageFormat.format("https://github.com/{0}/{1}/issues/", this.username, this.repo);
     }
 
+    public static DankTech2 getInstance() {
+        return DankTech2.instance;
+    }
+
     public static PluginManager getPluginManager() {
         return DankTech2.getInstance().getServer().getPluginManager();
     }
 
     public static SupportedPluginManager getSupportedPluginManager() {
-        return DankTech2.getInstance().getSupportedPlugins();
+        return DankTech2.getInstance().supportedPluginManager;
+    }
+    public static ConfigManager getConfigManager() {
+        return DankTech2.getInstance().configManager;
+    }
+    public static RunnableManager getRunnableManager() {
+        return DankTech2.getInstance().runnableManager;
     }
 
 }

@@ -1,5 +1,6 @@
 package io.github.sefiraat.danktech2.core;
 
+import io.github.sefiraat.danktech2.ConfigManager;
 import io.github.sefiraat.danktech2.slimefun.packs.DankPack;
 import io.github.sefiraat.danktech2.slimefun.packs.TrashPack;
 import io.github.sefiraat.danktech2.theme.ThemeType;
@@ -9,19 +10,14 @@ import io.github.sefiraat.danktech2.utils.Skulls;
 import io.github.sefiraat.danktech2.utils.datatypes.DataTypeMethods;
 import io.github.sefiraat.danktech2.utils.datatypes.PersistentDankInstanceType;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
-import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ChestMenu;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ClickAction;
-import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
-import me.mrCookieSlime.Slimefun.api.item_transport.ItemTransportFlow;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.jetbrains.annotations.NotNull;
 
 import java.text.MessageFormat;
 
@@ -215,19 +211,18 @@ public class DankGUI extends ChestMenu {
     private void depositAll(Player player, int instanceSlot) {
         final int maxAmount = this.dankPack.getCapacityPerSlot().getValue();
         final ItemStack itemToDeposit = this.packInstance.getItem(instanceSlot).clone();
-        int amount = this.packInstance.getAmount(instanceSlot);
 
         for (ItemStack testItem : player.getInventory().getStorageContents()) {
             if (testItem != null && testItem.isSimilar(itemToDeposit)) {
+                int amount = this.packInstance.getAmount(instanceSlot);
                 int inAmount = testItem.getAmount();
                 long testAmount = (long) amount + inAmount;
                 if (testAmount > maxAmount) {
                     this.packInstance.setAmount(instanceSlot, maxAmount);
                     testItem.setAmount((int) (testAmount - maxAmount));
-                    return;
+                    break;
                 } else {
-                    amount = (int) testAmount;
-                    this.packInstance.setAmount(instanceSlot, amount);
+                    this.packInstance.setAmount(instanceSlot, (int) testAmount);
                     testItem.setAmount(0);
                 }
             }
@@ -266,6 +261,13 @@ public class DankGUI extends ChestMenu {
         }
     }
 
+    @Override
+    public void open(Player... players) {
+        this.packInstance.setLastUser(players[0].getDisplayName());
+        saveInstance();
+        super.open(players);
+    }
+
     private void loadInstance() {
         this.packInstance = DataTypeMethods.getCustom(
             this.itemStack.getItemMeta(),
@@ -283,6 +285,7 @@ public class DankGUI extends ChestMenu {
             packInstance
         );
         this.itemStack.setItemMeta(itemMeta);
+        ConfigManager.getInstance().saveDankPack(this.itemStack);
     }
 
     public boolean allowedInDank(ItemStack itemStack) {
