@@ -1,6 +1,6 @@
 package io.github.sefiraat.danktech2.slimefun.machines;
 
-import io.github.sefiraat.danktech2.ConfigManager;
+import io.github.sefiraat.danktech2.managers.ConfigManager;
 import io.github.sefiraat.danktech2.core.DankPackInstance;
 import io.github.sefiraat.danktech2.core.TrashPackInstance;
 import io.github.sefiraat.danktech2.slimefun.Machines;

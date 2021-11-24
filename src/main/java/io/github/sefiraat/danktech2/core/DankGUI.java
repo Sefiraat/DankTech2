@@ -1,6 +1,6 @@
 package io.github.sefiraat.danktech2.core;
 
-import io.github.sefiraat.danktech2.ConfigManager;
+import io.github.sefiraat.danktech2.managers.ConfigManager;
 import io.github.sefiraat.danktech2.slimefun.packs.DankPack;
 import io.github.sefiraat.danktech2.slimefun.packs.TrashPack;
 import io.github.sefiraat.danktech2.theme.ThemeType;

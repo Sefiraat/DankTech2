@@ -1,6 +1,6 @@
 package io.github.sefiraat.danktech2.listeners;
 
-import io.github.sefiraat.danktech2.ConfigManager;
+import io.github.sefiraat.danktech2.managers.ConfigManager;
 import io.github.sefiraat.danktech2.DankTech2;
 import io.github.sefiraat.danktech2.core.DankPackInstance;
 import io.github.sefiraat.danktech2.core.TrashPackInstance;
@@ -13,9 +13,6 @@ import io.github.sefiraat.danktech2.utils.datatypes.DataTypeMethods;
 import io.github.sefiraat.danktech2.utils.datatypes.PersistentDankInstanceType;
 import io.github.sefiraat.danktech2.utils.datatypes.PersistentTrashInstanceType;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
-import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
-import net.md_5.bungee.api.ChatMessageType;
-import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Color;
 import org.bukkit.Particle;
 import org.bukkit.entity.Item;

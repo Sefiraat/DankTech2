@@ -1,6 +1,6 @@
 package io.github.sefiraat.danktech2.listeners;
 
-import io.github.sefiraat.danktech2.ConfigManager;
+import io.github.sefiraat.danktech2.managers.ConfigManager;
 import io.github.sefiraat.danktech2.core.DankGUI;
 import io.github.sefiraat.danktech2.core.DankPackInstance;
 import io.github.sefiraat.danktech2.core.TrashGUI;

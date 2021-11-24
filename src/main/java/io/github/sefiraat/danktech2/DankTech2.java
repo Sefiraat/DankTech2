@@ -1,8 +1,11 @@
 package io.github.sefiraat.danktech2;
 
-import com.sk89q.worldguard.config.ConfigurationManager;
 import io.github.sefiraat.danktech2.commands.DankTechMain;
 import io.github.sefiraat.danktech2.core.DankPackInstance;
+import io.github.sefiraat.danktech2.managers.ConfigManager;
+import io.github.sefiraat.danktech2.managers.ListenerManager;
+import io.github.sefiraat.danktech2.managers.RunnableManager;
+import io.github.sefiraat.danktech2.managers.SupportedPluginManager;
 import io.github.sefiraat.danktech2.slimefun.ItemGroups;
 import io.github.sefiraat.danktech2.slimefun.Machines;
 import io.github.sefiraat.danktech2.slimefun.Materials;
@@ -15,7 +18,6 @@ import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.updater.GitHubBuildsUpdater;
 import org.bstats.bukkit.Metrics;
 import org.bstats.charts.AdvancedPie;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.PluginManager;
@@ -26,7 +28,6 @@ import org.jetbrains.annotations.Nullable;
 import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 public class DankTech2 extends JavaPlugin implements SlimefunAddon {
 

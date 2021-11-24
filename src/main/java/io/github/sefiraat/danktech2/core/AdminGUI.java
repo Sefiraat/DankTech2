@@ -1,6 +1,6 @@
 package io.github.sefiraat.danktech2.core;
 
-import io.github.sefiraat.danktech2.ConfigManager;
+import io.github.sefiraat.danktech2.managers.ConfigManager;
 import io.github.sefiraat.danktech2.theme.ThemeType;
 import io.github.sefiraat.danktech2.utils.Keys;
 import io.github.sefiraat.danktech2.utils.datatypes.DataTypeMethods;
