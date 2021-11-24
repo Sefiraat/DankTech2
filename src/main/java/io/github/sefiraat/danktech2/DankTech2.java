@@ -154,7 +154,7 @@ public class DankTech2 extends JavaPlugin implements SlimefunAddon {
                     itemAmount += dankPackInstance.getAmount(i);
                 }
 
-                dankValues.put(name, itemAmount);
+                heldItemValues.put(name, itemAmount);
             }
         }
 
