@@ -15,14 +15,6 @@ import org.bukkit.inventory.ItemStack;
 @UtilityClass
 public final class ItemGroups {
 
-    public static final DummyItemGroup DUMMY_ITEM_GROUP = new DummyItemGroup(
-        Keys.newKey("dummy"),
-        new CustomItemStack(
-            new ItemStack(Material.FIRE_CHARGE),
-            ThemeType.MAIN.getColor() + "Dummy Crystamae Historia"
-        )
-    );
-
     public static final NestedItemGroup MAIN = new NestedItemGroup(
         Keys.newKey("main"),
         new CustomItemStack(
