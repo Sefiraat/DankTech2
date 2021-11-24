@@ -85,7 +85,7 @@ public class ConfigManager {
         if (slimefunItem instanceof DankPack) {
             DankPackInstance instance = DataTypeMethods.getCustom(itemStack.getItemMeta(), Keys.DANK_INSTANCE, PersistentDankInstanceType.TYPE);
             dankPacks.set(instance.getId() + ".last_user", instance.getLastUser());
-            dankPacks.set(instance.getId() + ".item", itemStack);
+            dankPacks.set(instance.getId() + ".item", itemStack.clone());
         }
     }
 

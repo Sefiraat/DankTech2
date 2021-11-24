@@ -112,6 +112,12 @@ public class DankTech2 extends JavaPlugin implements SlimefunAddon {
         final Map<String, Integer> heldItemValues = new HashMap<>();
 
         for (ItemStack dank : ConfigManager.getInstance().getAllPacks()) {
+
+            if (dank == null) {
+                getLogger().warning("Bad Dank");
+                continue;
+            }
+
             final DankPackInstance dankPackInstance = DataTypeMethods.getCustom(
                 dank.getItemMeta(),
                 Keys.DANK_INSTANCE,

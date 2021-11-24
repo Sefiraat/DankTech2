@@ -46,9 +46,9 @@ public class PackListener implements Listener {
             event.setCancelled(true);
 
             final DankPack dankPack = (DankPack) slimefunItem;
-            final ItemMeta itemMeta = heldItem.getItemMeta();
+            final ItemMeta heldIemMeta = heldItem.getItemMeta();
             DankPackInstance dankPackInstance = DataTypeMethods.getCustom(
-                itemMeta,
+                heldIemMeta,
                 Keys.DANK_INSTANCE,
                 PersistentDankInstanceType.TYPE
             );
@@ -76,7 +76,7 @@ public class PackListener implements Listener {
                     incrementSlot(heldItem, dankPackInstance, player);
                 } else if (action == Action.RIGHT_CLICK_BLOCK) {
                     Block block = event.getClickedBlock().getRelative(event.getBlockFace());
-                    tryBuild(heldItem, itemMeta, dankPackInstance, block, player);
+                    tryBuild(heldItem, heldIemMeta, dankPackInstance, block, player);
                 }
             } else if (action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK) {
                 DankGUI dankGUI = new DankGUI(dankPackInstance, heldItem);
@@ -176,7 +176,7 @@ public class PackListener implements Listener {
     private TrashPackInstance generateNewTrashInstance(ItemStack itemStack, int tier) {
         TrashPackInstance trashPackInstance  = new TrashPackInstance(System.currentTimeMillis(), tier);
         ItemMeta itemMeta = itemStack.getItemMeta();
-        DataTypeMethods.setCustom(itemMeta, Keys.DANK_INSTANCE, PersistentTrashInstanceType.TYPE, trashPackInstance);
+        DataTypeMethods.setCustom(itemMeta, Keys.TRASH_INSTANCE, PersistentTrashInstanceType.TYPE, trashPackInstance);
         itemStack.setItemMeta(itemMeta);
         return trashPackInstance;
     }

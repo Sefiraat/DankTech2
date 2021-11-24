@@ -16,6 +16,9 @@ public class Keys {
     public static final NamespacedKey DANK_SELECTED_SLOT = Keys.newKey("dank_slot");
     public static final NamespacedKey TRASH_INSTANCE = Keys.newKey("trash_instance");
 
+    // Entity
+    public static final NamespacedKey DISPLAY_STAND = Keys.newKey("display");
+
     @Nonnull
     public static NamespacedKey newKey(@Nonnull String value) {
         return new NamespacedKey(DankTech2.getInstance(), value);

@@ -2,12 +2,14 @@ package io.github.sefiraat.danktech2.slimefun.machines;
 
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Splitter;
-import io.github.sefiraat.danktech2.managers.ConfigManager;
 import io.github.sefiraat.danktech2.core.DankPackInstance;
+import io.github.sefiraat.danktech2.managers.ConfigManager;
 import io.github.sefiraat.danktech2.slimefun.Machines;
 import io.github.sefiraat.danktech2.slimefun.packs.DankPack;
 import io.github.sefiraat.danktech2.theme.ThemeType;
+import io.github.sefiraat.danktech2.utils.ArmourStandUtils;
 import io.github.sefiraat.danktech2.utils.Keys;
+import io.github.sefiraat.danktech2.utils.ParticleUtils;
 import io.github.sefiraat.danktech2.utils.datatypes.DataTypeMethods;
 import io.github.sefiraat.danktech2.utils.datatypes.PersistentDankInstanceType;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
@@ -24,20 +26,27 @@ import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
 import me.mrCookieSlime.Slimefun.api.item_transport.ItemTransportFlow;
+import org.bukkit.Bukkit;
+import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.block.Block;
+import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 public class DankUnloader extends SlimefunItem {
 
@@ -50,7 +59,8 @@ public class DankUnloader extends SlimefunItem {
     private static final int INPUT_SLOT = 10;
     private static final int OUTPUT_SLOT = 16;
 
-    private final Map<Location, Boolean[]> caches = new HashMap<>();
+    private final Map<Location, Boolean[]> toggleStates = new HashMap<>();
+    private final Map<Location, UUID> armorStands = new HashMap<>();
 
     @ParametersAreNonnullByDefault
     public DankUnloader(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
@@ -67,21 +77,23 @@ public class DankUnloader extends SlimefunItem {
                 public void tick(Block block, SlimefunItem item, Config data) {
                     final BlockMenu blockMenu = BlockStorage.getInventory(block);
                     final ItemStack inputItem = blockMenu.getItemInSlot(INPUT_SLOT);
-
-                    if (inputItem == null || blockMenu.getItemInSlot(OUTPUT_SLOT) != null) {
-                        return;
-                    }
-
                     final SlimefunItem slimefunItem = SlimefunItem.getByItem(inputItem);
 
                     if (!(slimefunItem instanceof DankPack)) {
+                        clearDisplay(blockMenu);
                         return;
                     }
+
+                    if (blockMenu.getItemInSlot(OUTPUT_SLOT) != null) {
+                        return;
+                    }
+
+                    setDisplay(blockMenu, inputItem.clone());
 
                     final ItemMeta inputMeta = inputItem.getItemMeta();
                     final DankPack dankPack = (DankPack) slimefunItem;
                     final DankPackInstance dankPackInstance = DataTypeMethods.getCustom(inputMeta, Keys.DANK_INSTANCE, PersistentDankInstanceType.TYPE);
-                    final Boolean[] booleans = caches.get(blockMenu.getLocation());
+                    final Boolean[] booleans = toggleStates.get(blockMenu.getLocation());
 
                     if (ConfigManager.getInstance().checkDankDeletion(dankPackInstance.getId())) {
                         inputItem.setAmount(0);
@@ -104,10 +116,11 @@ public class DankUnloader extends SlimefunItem {
                         final ItemStack outputItem = dankItem.clone();
 
                         outputItem.setAmount(amountToRemove);
-                        dankPackInstance.setAmount(i,  currentAmount - amountToRemove);
+                        dankPackInstance.setAmount(i, currentAmount - amountToRemove);
                         DataTypeMethods.setCustom(inputMeta, Keys.DANK_INSTANCE, PersistentDankInstanceType.TYPE, dankPackInstance);
                         inputItem.setItemMeta(inputMeta);
                         blockMenu.pushItem(outputItem, OUTPUT_SLOT);
+                        ParticleUtils.displayParticleEffect(blockMenu.getLocation().clone().add(0.5,0.5,0.5), 0.3, 4, new Particle.DustOptions(Color.RED, 1));
                         return;
                     }
                 }
@@ -147,6 +160,9 @@ public class DankUnloader extends SlimefunItem {
             @Override
             public void newInstance(@NotNull BlockMenu menu, @NotNull Block b) {
                 String slotInfoString = BlockStorage.getLocationInfo(menu.getLocation(), "slots");
+                String standInfoString = BlockStorage.getLocationInfo(menu.getLocation(), "stand");
+
+                // Toggle States
                 Boolean[] booleans = new Boolean[9];
                 if (slotInfoString == null) {
                     booleans = new Boolean[]{false, false, false, false, false, false, false, false, false};
@@ -162,7 +178,7 @@ public class DankUnloader extends SlimefunItem {
                         i++;
                     }
                 }
-                caches.put(menu.getLocation(), booleans);
+                toggleStates.put(menu.getLocation(), booleans);
                 for (int slot = 0; slot < 9; slot++) {
                     final boolean toggle = booleans[slot];
                     final int finalSlot = slot;
@@ -179,24 +195,50 @@ public class DankUnloader extends SlimefunItem {
                         );
                     }
                 }
+
+                // ArmorStand
+                ArmorStand armorStand;
+                if (standInfoString == null) {
+                    Location spawnLocation = menu.getLocation().clone().add(0.5, -1.3, 0.5);
+                    armorStand = (ArmorStand) spawnLocation.getWorld().spawnEntity(spawnLocation, EntityType.ARMOR_STAND);
+                    ArmourStandUtils.setDisplay(armorStand);
+                    BlockStorage.addBlockInfo(menu.getLocation(), "stand", armorStand.getUniqueId().toString());
+                } else {
+                    armorStand = (ArmorStand) Bukkit.getEntity(UUID.fromString(standInfoString));
+                }
+                armorStands.put(menu.getLocation(), armorStand.getUniqueId());
             }
         };
+    }
+
+    private ArmorStand getArmorStand(BlockMenu menu) {
+        return (ArmorStand) Bukkit.getEntity(armorStands.get(menu.getLocation()));
+    }
+
+    private void clearDisplay(BlockMenu menu) {
+        ArmorStand armorStand = getArmorStand(menu);
+        ArmourStandUtils.clearDisplayItem(armorStand);
+    }
+
+    private void setDisplay(BlockMenu menu, ItemStack itemStack) {
+        ArmorStand armorStand = getArmorStand(menu);
+        ArmourStandUtils.setDisplayItem(armorStand, itemStack);
     }
 
     private void syncBlockInfo(BlockMenu menu) {
         BlockStorage.addBlockInfo(
             menu.getLocation(),
             "slots",
-            Arrays.toString(caches.get(menu.getLocation()))
+            Arrays.toString(toggleStates.get(menu.getLocation()))
         );
     }
 
     private boolean toggleButton(BlockMenu blockMenu, int slot) {
         Location location = blockMenu.getLocation();
-        Boolean[] booleans = caches.get(location);
+        Boolean[] booleans = toggleStates.get(location);
         boolean toggle = booleans[slot];
         booleans[slot] = !toggle;
-        caches.put(location, booleans);
+        toggleStates.put(location, booleans);
         blockMenu.replaceExistingItem(
             TOGGLE_SLOTS[slot],
             !toggle ? getSlotOnStack(slot) : getSlotOffStack(slot)
@@ -210,6 +252,7 @@ public class DankUnloader extends SlimefunItem {
             @Override
             public void onPlayerBreak(BlockBreakEvent event, ItemStack itemStack, List<ItemStack> drops) {
                 BlockMenu menu = BlockStorage.getInventory(event.getBlock());
+                getArmorStand(menu).remove();
                 menu.dropItems(menu.getLocation(), INPUT_SLOT);
                 menu.dropItems(menu.getLocation(), OUTPUT_SLOT);
                 BlockStorage.clearBlockInfo(event.getBlock());

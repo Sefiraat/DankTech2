@@ -38,7 +38,7 @@ public class AdminGUI extends ChestMenu {
 
 
     private final List<ItemStack> itemStacks;
-    private int page = 0;
+    private int page = 1;
     private final int maxPages;
 
     public AdminGUI() {
@@ -54,10 +54,12 @@ public class AdminGUI extends ChestMenu {
             PAGE_BACK_SLOT,
             PAGE_BACK_STACK,
             (p, slot, item, action) -> {
-                if (this.page > 0) {
-                    this.page++;
-                    setupAllItems();
+                if (this.page > 1) {
+                    this.page--;
+                } else {
+                    this.page = 1;
                 }
+                setupAllItems();
                 return false;
             }
         );
@@ -66,9 +68,11 @@ public class AdminGUI extends ChestMenu {
             PAGE_FORWARD_STACK,
             (p, slot, item, action) -> {
                 if (this.page < maxPages) {
-                    this.page--;
-                    setupAllItems();
+                    this.page++;
+                } else {
+                    this.page = maxPages;
                 }
+                setupAllItems();
                 return false;
             }
         );
@@ -83,7 +87,7 @@ public class AdminGUI extends ChestMenu {
     }
 
     private void setupAllItems() {
-        int start = page * 36;
+        int start = (page - 1) * 36;
         int testEnd = start + 36;
         int size = itemStacks.size();
         int end = Math.min(testEnd, size);
@@ -103,6 +107,7 @@ public class AdminGUI extends ChestMenu {
                 addMenuClickHandler(9 + i, (p, slot, item, action) -> {
                     if (action.isRightClicked()) {
                         p.getInventory().addItem(cloneDank(dank));
+                        p.closeInventory();
                     } else {
                         DankGUI dankGUI = new DankGUI(dankPackInstance, dank);
                         dankGUI.open(p);

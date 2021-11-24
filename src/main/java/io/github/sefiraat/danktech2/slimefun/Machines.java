@@ -47,7 +47,7 @@ public class Machines {
             ItemGroups.MACHINES,
             ThemeType.themedSlimefunItemStack(
                 "DK2_UNLOADER_1",
-                new ItemStack(Material.JUKEBOX),
+                new ItemStack(Material.GLASS),
                 ThemeType.MACHINE,
                 "Dank Unloader",
                 "Pulls out items from your Dank Packs"
