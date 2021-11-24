@@ -304,7 +304,7 @@ public class DankGUI extends ChestMenu {
             MessageFormat.format("{0}Left Click: {1}Withdraw One", ThemeType.CLICK_INFO.getColor(), ThemeType.PASSIVE.getColor()),
             MessageFormat.format("{0}Right Click: {1}Withdraw Stack", ThemeType.CLICK_INFO.getColor(), ThemeType.PASSIVE.getColor()),
             MessageFormat.format("{0}Shift Left Click: {1}Input Whole Inventory", ThemeType.CLICK_INFO.getColor(), ThemeType.PASSIVE.getColor()),
-            MessageFormat.format("{0}Left Click: {1}Fill Inventory", ThemeType.CLICK_INFO.getColor(), ThemeType.PASSIVE.getColor()),
+            MessageFormat.format("{0}Shift Right Click: {1}Fill Inventory", ThemeType.CLICK_INFO.getColor(), ThemeType.PASSIVE.getColor()),
             "",
             MessageFormat.format("{0}Amount: {1}{2}", ThemeType.CLICK_INFO.getColor(), ThemeType.PASSIVE.getColor(), amount)
         );

@@ -1,25 +1,15 @@
 package io.github.sefiraat.danktech2.core;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import org.bukkit.inventory.ItemStack;
 
+@Data
 public class DankPackInstance {
 
-    @Getter
-    @Setter
     private long id;
-    @Getter
-    @Setter
     private int tier;
-    @Getter
-    @Setter
     private ItemStack[] items = new ItemStack[9];
-    @Getter
-    @Setter
     private int[] amounts = new int[9];
-    @Getter
-    @Setter
     private String lastUser = "Unknown";
 
     public DankPackInstance(long id, int tier) {

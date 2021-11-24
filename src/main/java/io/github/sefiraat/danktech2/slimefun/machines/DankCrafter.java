@@ -98,8 +98,10 @@ public class DankCrafter extends SlimefunItem {
             public void newInstance(@NotNull BlockMenu menu, @NotNull Block b) {
                 menu.addMenuClickHandler(CRAFT_SLOT, (player, slot, item, action) -> {
 
+                    ItemStack itemInOutput = menu.getItemInSlot(OUTPUT_SLOT);
+
                     // Quick escape, we only allow crafting if the output is empty
-                    if (getItemInSlot(OUTPUT_SLOT) != null) {
+                    if (itemInOutput != null) {
                         return false;
                     }
 
@@ -126,6 +128,7 @@ public class DankCrafter extends SlimefunItem {
                     if (crafted == null) {
                         return false;
                     }
+
                     final SlimefunItem slimefunItem = SlimefunItem.getByItem(crafted);
                     final ItemStack coreItemStack = inputs[4];
                     final ItemMeta coreItemMeta = coreItemStack.getItemMeta();

@@ -45,8 +45,21 @@ public class PackListener implements Listener {
         if (slimefunItem instanceof DankPack) {
             event.setCancelled(true);
 
+            final DankPack dankPack = (DankPack) slimefunItem;
             final ItemMeta itemMeta = heldItem.getItemMeta();
-            final DankPackInstance dankPackInstance = DataTypeMethods.getCustom(itemMeta, Keys.DANK_INSTANCE, PersistentDankInstanceType.TYPE);
+            DankPackInstance dankPackInstance = DataTypeMethods.getCustom(
+                itemMeta,
+                Keys.DANK_INSTANCE,
+                PersistentDankInstanceType.TYPE
+            );
+
+            if (dankPackInstance == null) {
+                player.sendMessage(MessageFormat.format(
+                    "{0}Dank Pack not crafted - creating new instance",
+                    ThemeType.WARNING.getColor())
+                );
+                dankPackInstance = generateNewDankInstance(heldItem, dankPack.getTier());
+            }
 
             if (ConfigManager.getInstance().checkDankDeletion(dankPackInstance.getId())) {
                 player.sendMessage(MessageFormat.format(
@@ -71,7 +84,17 @@ public class PackListener implements Listener {
             }
         } else if (slimefunItem instanceof TrashPack) {
             if (action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK) {
+                final TrashPack trashPack = (TrashPack) slimefunItem;
                 TrashPackInstance trashPackInstance = DataTypeMethods.getCustom(heldItem.getItemMeta(), Keys.TRASH_INSTANCE, PersistentTrashInstanceType.TYPE);
+
+                if (trashPackInstance == null) {
+                    player.sendMessage(MessageFormat.format(
+                        "{0}Trash Pack not crafted - creating new instance",
+                        ThemeType.WARNING.getColor())
+                    );
+                    trashPackInstance = generateNewTrashInstance(heldItem, trashPack.getTier());
+                }
+
                 TrashGUI trashGUI = new TrashGUI(trashPackInstance, heldItem);
                 trashGUI.open(player);
             }
@@ -141,4 +164,20 @@ public class PackListener implements Listener {
         return false;
     }
 
+    private DankPackInstance generateNewDankInstance(ItemStack itemStack, int tier) {
+        DankPackInstance dankPackInstance = new DankPackInstance(System.currentTimeMillis(), tier);
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        DataTypeMethods.setCustom(itemMeta, Keys.DANK_INSTANCE, PersistentDankInstanceType.TYPE, dankPackInstance);
+        itemStack.setItemMeta(itemMeta);
+        ConfigManager.getInstance().saveDankPack(itemStack);
+        return dankPackInstance;
+    }
+
+    private TrashPackInstance generateNewTrashInstance(ItemStack itemStack, int tier) {
+        TrashPackInstance trashPackInstance  = new TrashPackInstance(System.currentTimeMillis(), tier);
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        DataTypeMethods.setCustom(itemMeta, Keys.DANK_INSTANCE, PersistentTrashInstanceType.TYPE, trashPackInstance);
+        itemStack.setItemMeta(itemMeta);
+        return trashPackInstance;
+    }
 }

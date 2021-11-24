@@ -12,6 +12,7 @@ import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -100,7 +101,10 @@ public class ConfigManager {
     public List<ItemStack> getAllPacks() {
         List<ItemStack> itemStackList = new ArrayList<>();
         for (String s : dankPacks.getKeys(false)) {
-            itemStackList.add(dankPacks.getItemStack(s + ".item"));
+            ItemStack itemStack = dankPacks.getItemStack(s + ".item");
+            if (itemStack != null) {
+                itemStackList.add(itemStack);
+            }
         }
         return itemStackList;
     }

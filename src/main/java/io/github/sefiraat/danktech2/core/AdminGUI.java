@@ -137,7 +137,12 @@ public class AdminGUI extends ChestMenu {
         lore.add(MessageFormat.format("{0}Left Click: {1}Open Dank", ThemeType.CLICK_INFO.getColor(), ThemeType.PASSIVE.getColor()));
         lore.add(MessageFormat.format("{0}Right Click: {1}Clone Dank", ThemeType.CLICK_INFO.getColor(), ThemeType.PASSIVE.getColor()));
         lore.add("");
-        lore.add(MessageFormat.format("{0}Last User: {1}{2}}", ThemeType.CLICK_INFO.getColor(), ThemeType.PASSIVE.getColor(), dankPackInstance.getLastUser()));
+        lore.add(MessageFormat.format("{0}Warning - Cloning a DankPack", ThemeType.ERROR.getColor()));
+        lore.add(MessageFormat.format("{0}will delete the original and", ThemeType.ERROR.getColor()));
+        lore.add(MessageFormat.format("{0}remove them from players inventories", ThemeType.ERROR.getColor()));
+        lore.add(MessageFormat.format("{0}and unloaders", ThemeType.ERROR.getColor()));
+        lore.add("");
+        lore.add(MessageFormat.format("{0}Last User: {1}{2}", ThemeType.CLICK_INFO.getColor(), ThemeType.PASSIVE.getColor(), dankPackInstance.getLastUser()));
         displayMeta.setLore(lore);
         displayDank.setItemMeta(displayMeta);
         return displayDank;

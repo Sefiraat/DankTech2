@@ -1,9 +1,11 @@
 package io.github.sefiraat.danktech2.utils;
 
+import lombok.experimental.UtilityClass;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
+@UtilityClass
 public class GeneralUtils {
 
     public static int getEmptySlots(Player player) {

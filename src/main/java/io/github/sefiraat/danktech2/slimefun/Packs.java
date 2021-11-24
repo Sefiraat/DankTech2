@@ -288,7 +288,7 @@ public class Packs {
         trashPack3 = new TrashPack(
             ItemGroups.PACKS,
             ThemeType.themedSlimefunItemStack(
-                "DK3_TRASH_3",
+                "DK2_TRASH_3",
                 Skulls.TRASH_3.getPlayerHead(),
                 ThemeType.T3,
                 "Trash Pack",
@@ -307,7 +307,7 @@ public class Packs {
         trashPack4 = new TrashPack(
             ItemGroups.PACKS,
             ThemeType.themedSlimefunItemStack(
-                "DK4_TRASH_4",
+                "DK2_TRASH_4",
                 Skulls.TRASH_4.getPlayerHead(),
                 ThemeType.T4,
                 "Trash Pack",
@@ -326,7 +326,7 @@ public class Packs {
         trashPack5 = new TrashPack(
             ItemGroups.PACKS,
             ThemeType.themedSlimefunItemStack(
-                "DK5_TRASH_5",
+                "DK2_TRASH_5",
                 Skulls.TRASH_5.getPlayerHead(),
                 ThemeType.T5,
                 "Trash Pack",
@@ -345,7 +345,7 @@ public class Packs {
         trashPack6 = new TrashPack(
             ItemGroups.PACKS,
             ThemeType.themedSlimefunItemStack(
-                "DK6_TRASH_6",
+                "DK2_TRASH_6",
                 Skulls.TRASH_6.getPlayerHead(),
                 ThemeType.T6,
                 "Trash Pack",
@@ -364,7 +364,7 @@ public class Packs {
         trashPack7 = new TrashPack(
             ItemGroups.PACKS,
             ThemeType.themedSlimefunItemStack(
-                "DK7_TRASH_7",
+                "DK2_TRASH_7",
                 Skulls.TRASH_7.getPlayerHead(),
                 ThemeType.T7,
                 "Trash Pack",
@@ -383,7 +383,7 @@ public class Packs {
         trashPack8 = new TrashPack(
             ItemGroups.PACKS,
             ThemeType.themedSlimefunItemStack(
-                "DK8_TRASH_8",
+                "DK2_TRASH_8",
                 Skulls.TRASH_8.getPlayerHead(),
                 ThemeType.T8,
                 "Trash Pack",
@@ -402,7 +402,7 @@ public class Packs {
         trashPack9 = new TrashPack(
             ItemGroups.PACKS,
             ThemeType.themedSlimefunItemStack(
-                "DK9_TRASH_9",
+                "DK2_TRASH_9",
                 Skulls.TRASH_9.getPlayerHead(),
                 ThemeType.T9,
                 "Trash Pack",

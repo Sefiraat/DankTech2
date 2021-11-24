@@ -1,18 +1,32 @@
 package io.github.sefiraat.danktech2;
 
+import com.sk89q.worldguard.config.ConfigurationManager;
 import io.github.sefiraat.danktech2.commands.DankTechMain;
+import io.github.sefiraat.danktech2.core.DankPackInstance;
 import io.github.sefiraat.danktech2.slimefun.ItemGroups;
 import io.github.sefiraat.danktech2.slimefun.Machines;
 import io.github.sefiraat.danktech2.slimefun.Materials;
 import io.github.sefiraat.danktech2.slimefun.Packs;
+import io.github.sefiraat.danktech2.theme.ThemeType;
+import io.github.sefiraat.danktech2.utils.Keys;
+import io.github.sefiraat.danktech2.utils.datatypes.DataTypeMethods;
+import io.github.sefiraat.danktech2.utils.datatypes.PersistentDankInstanceType;
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.updater.GitHubBuildsUpdater;
+import org.bstats.bukkit.Metrics;
+import org.bstats.charts.AdvancedPie;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.text.MessageFormat;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public class DankTech2 extends JavaPlugin implements SlimefunAddon {
 
@@ -54,6 +68,7 @@ public class DankTech2 extends JavaPlugin implements SlimefunAddon {
 
         this.getCommand("danktech2").setExecutor(new DankTechMain());
 
+        setupMetrics();
     }
 
     @Override
@@ -90,6 +105,59 @@ public class DankTech2 extends JavaPlugin implements SlimefunAddon {
         return MessageFormat.format("https://github.com/{0}/{1}/issues/", this.username, this.repo);
     }
 
+    public void setupMetrics() {
+        final Metrics metrics = new Metrics(this, 13399);
+        final Map<String, Integer> dankValues = new HashMap<>();
+        final Map<String, Integer> heldItemValues = new HashMap<>();
+
+        for (ItemStack dank : ConfigManager.getInstance().getAllPacks()) {
+            final DankPackInstance dankPackInstance = DataTypeMethods.getCustom(
+                dank.getItemMeta(),
+                Keys.DANK_INSTANCE,
+                PersistentDankInstanceType.TYPE
+            );
+
+            Integer dankAmount = dankValues.get("Tier " + dankPackInstance.getTier());
+
+            if (dankAmount == null) {
+                dankAmount = 1;
+            } else {
+                dankAmount++;
+            }
+
+            dankValues.put("Tier " + dankPackInstance.getTier(), dankAmount);
+
+            for (int i = 0; i < dankPackInstance.getTier(); i++) {
+                final ItemStack heldItem = dankPackInstance.getItem(i);
+
+                if (heldItem == null) {
+                    continue;
+                }
+
+                final ItemMeta itemMeta = heldItem.getItemMeta();
+                final String name = itemMeta.hasDisplayName() ?
+                    itemMeta.getDisplayName() :
+                    ThemeType.toTitleCase(heldItem.getType().toString());
+
+                Integer itemAmount = heldItemValues.get(name);
+
+                if (itemAmount == null) {
+                    itemAmount = dankPackInstance.getAmount(i);
+                } else {
+                    itemAmount += dankPackInstance.getAmount(i);
+                }
+
+                dankValues.put(name, itemAmount);
+            }
+        }
+
+        AdvancedPie danksChart = new AdvancedPie("danks", () -> dankValues);
+        AdvancedPie heldItemsChart = new AdvancedPie("held_items", () -> heldItemValues);
+
+        metrics.addCustomChart(danksChart);
+        metrics.addCustomChart(heldItemsChart);
+    }
+
     public static DankTech2 getInstance() {
         return DankTech2.instance;
     }
@@ -101,11 +169,12 @@ public class DankTech2 extends JavaPlugin implements SlimefunAddon {
     public static SupportedPluginManager getSupportedPluginManager() {
         return DankTech2.getInstance().supportedPluginManager;
     }
+
     public static ConfigManager getConfigManager() {
         return DankTech2.getInstance().configManager;
     }
+
     public static RunnableManager getRunnableManager() {
         return DankTech2.getInstance().runnableManager;
     }
-
 }

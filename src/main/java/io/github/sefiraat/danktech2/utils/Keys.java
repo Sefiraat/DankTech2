@@ -2,16 +2,14 @@ package io.github.sefiraat.danktech2.utils;
 
 import io.github.sefiraat.danktech2.DankTech2;
 import lombok.Data;
+import lombok.experimental.UtilityClass;
 import org.bukkit.NamespacedKey;
 
 import javax.annotation.Nonnull;
 
 @Data
+@UtilityClass
 public class Keys {
-
-    private Keys() {
-        throw new IllegalStateException("Utility Class");
-    }
 
     // DankPack Storage
     public static final NamespacedKey DANK_INSTANCE = Keys.newKey("dank_instance");

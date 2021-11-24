@@ -94,7 +94,7 @@ public class Materials {
         dankCell3 = new UnplaceableBlock(
             ItemGroups.MATERIALS,
             ThemeType.themedSlimefunItemStack(
-                "DK3_CELL_3",
+                "DK2_CELL_3",
                 Skulls.CELL_3.getPlayerHead(),
                 ThemeType.CRAFTING,
                 "Dank Cell - Tier 3",
@@ -114,7 +114,7 @@ public class Materials {
         dankCell4 = new UnplaceableBlock(
             ItemGroups.MATERIALS,
             ThemeType.themedSlimefunItemStack(
-                "DK4_CELL_4",
+                "DK2_CELL_4",
                 Skulls.CELL_4.getPlayerHead(),
                 ThemeType.CRAFTING,
                 "Dank Cell - Tier 4",
@@ -134,7 +134,7 @@ public class Materials {
         dankCell5 = new UnplaceableBlock(
             ItemGroups.MATERIALS,
             ThemeType.themedSlimefunItemStack(
-                "DK5_CELL_5",
+                "DK2_CELL_5",
                 Skulls.CELL_5.getPlayerHead(),
                 ThemeType.CRAFTING,
                 "Dank Cell - Tier 5",
@@ -154,7 +154,7 @@ public class Materials {
         dankCell6 = new UnplaceableBlock(
             ItemGroups.MATERIALS,
             ThemeType.themedSlimefunItemStack(
-                "DK6_CELL_6",
+                "DK2_CELL_6",
                 Skulls.CELL_6.getPlayerHead(),
                 ThemeType.CRAFTING,
                 "Dank Cell - Tier 6",
@@ -174,7 +174,7 @@ public class Materials {
         dankCell7 = new UnplaceableBlock(
             ItemGroups.MATERIALS,
             ThemeType.themedSlimefunItemStack(
-                "DK7_CELL_7",
+                "DK2_CELL_7",
                 Skulls.CELL_7.getPlayerHead(),
                 ThemeType.CRAFTING,
                 "Dank Cell - Tier 7",
@@ -194,7 +194,7 @@ public class Materials {
         dankCell8 = new UnplaceableBlock(
             ItemGroups.MATERIALS,
             ThemeType.themedSlimefunItemStack(
-                "DK8_CELL_8",
+                "DK2_CELL_8",
                 Skulls.CELL_8.getPlayerHead(),
                 ThemeType.CRAFTING,
                 "Dank Cell - Tier 8",
@@ -214,7 +214,7 @@ public class Materials {
         dankCell9 = new UnplaceableBlock(
             ItemGroups.MATERIALS,
             ThemeType.themedSlimefunItemStack(
-                "DK9_CELL_9",
+                "DK2_CELL_9",
                 Skulls.CELL_9.getPlayerHead(),
                 ThemeType.CRAFTING,
                 "Dank Cell - Tier ★",

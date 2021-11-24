@@ -9,6 +9,8 @@ depend:
   - Slimefun
 softdepend:
   - mcMMO
+  - RoseStacker
+  - WildStacker
 commands:
   danktech2:
     description: /danktech2
