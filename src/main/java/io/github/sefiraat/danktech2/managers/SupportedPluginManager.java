@@ -1,11 +1,13 @@
 package io.github.sefiraat.danktech2.managers;
 
 import com.bgsoftware.wildstacker.api.WildStackerAPI;
+import com.gmail.nossr50.mcMMO;
 import com.gmail.nossr50.util.skills.CombatUtils;
 import dev.rosewood.rosestacker.api.RoseStackerAPI;
 import dev.rosewood.rosestacker.stack.StackedItem;
 import lombok.Getter;
 import org.bukkit.Bukkit;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -13,14 +15,14 @@ import org.bukkit.entity.Player;
 @Getter
 public class SupportedPluginManager {
 
-    private final boolean mcMMO;
+    private final boolean isMcMMO;
     private final boolean wildStacker;
     private final boolean roseStacker;
 
     private RoseStackerAPI roseStackerAPI;
 
     public SupportedPluginManager() {
-        mcMMO = Bukkit.getPluginManager().isPluginEnabled("mcMMO");
+        isMcMMO = Bukkit.getPluginManager().isPluginEnabled("mcMMO");
         wildStacker = Bukkit.getPluginManager().isPluginEnabled("WildStacker");
         roseStacker = Bukkit.getPluginManager().isPluginEnabled("RoseStacker");
 
@@ -45,12 +47,18 @@ public class SupportedPluginManager {
         clearEntityMcMMOIgnoreDamage(livingEntity);
     }
 
+    public void markBlockPlaced(Block block) {
+        if (isMcMMO) {
+            mcMMO.getPlaceStore().setTrue(block);
+        }
+    }
+
     public void markEntityMcMMOIgnoreDamage(LivingEntity livingEntity) {
-        if (mcMMO) CombatUtils.applyIgnoreDamageMetadata(livingEntity);
+        if (isMcMMO) CombatUtils.applyIgnoreDamageMetadata(livingEntity);
     }
 
     public void clearEntityMcMMOIgnoreDamage(LivingEntity livingEntity) {
-        if (mcMMO) CombatUtils.removeIgnoreDamageMetadata(livingEntity);
+        if (isMcMMO) CombatUtils.removeIgnoreDamageMetadata(livingEntity);
     }
 
     public int getStackAmount(Item item) {

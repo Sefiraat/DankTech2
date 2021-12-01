@@ -1,10 +1,12 @@
 package io.github.sefiraat.danktech2.listeners;
 
+import io.github.sefiraat.danktech2.DankTech2;
 import io.github.sefiraat.danktech2.managers.ConfigManager;
 import io.github.sefiraat.danktech2.core.DankGUI;
 import io.github.sefiraat.danktech2.core.DankPackInstance;
 import io.github.sefiraat.danktech2.core.TrashGUI;
 import io.github.sefiraat.danktech2.core.TrashPackInstance;
+import io.github.sefiraat.danktech2.managers.SupportedPluginManager;
 import io.github.sefiraat.danktech2.slimefun.packs.DankPack;
 import io.github.sefiraat.danktech2.slimefun.packs.TrashPack;
 import io.github.sefiraat.danktech2.theme.ThemeType;
@@ -142,6 +144,7 @@ public class PackListener implements Listener {
             if (isSafeToBuild(block, player)) {
                 dankPackInstance.setAmount(selectedSlot, amount - 1);
                 block.setType(stackToPlace.getType());
+                DankTech2.getSupportedPluginManager().markBlockPlaced(block);
                 DataTypeMethods.setCustom(
                     itemMeta,
                     Keys.DANK_INSTANCE,
