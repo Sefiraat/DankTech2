@@ -30,7 +30,7 @@ public class ConfigManager {
 
     public ConfigManager() {
         instance = this;
-
+        DankTech2.getInstance().saveDefaultConfig();
         this.dankPacks = getConfig("dank_packs.yml", false);
     }
 
@@ -67,7 +67,6 @@ public class ConfigManager {
 
     public void saveAll() {
         DankTech2.getInstance().getLogger().info("DankTech2 saving data.");
-        DankTech2.getInstance().saveConfig();
         saveConfig(dankPacks, "dank_packs.yml");
     }
 
