@@ -17,3 +17,5 @@ The plugin currently features:
 
 ## Credits
 A big shout out to the owners of [mct.tantrum.org](https://mct.enjin.com/) who let me test on their server even once it was clear I barely knew what I was doing for DankTech and then again when I slightly knew what I was doing with DankTech2! <3
+
+Another big shoutout to **GentlemanCheesy** of **mc.talosmp.net** for being my first (and as of writing this, only!) sponsor. A few coffee's a month to make me feel better about making these addons <3
