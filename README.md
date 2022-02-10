@@ -4,6 +4,10 @@
 
 DankTech2 is a full, Slimefun Only, rewrite of my previous plugin DankTech. DanchTech was itself an attempt to recreate the [Dank Storage](https://www.curseforge.com/minecraft/mc-mods/dank-storage) mod, [/dank/null](https://www.curseforge.com/minecraft/mc-mods/dank-null) and OpenBlocks /dev/null in the form of a plugin.
 
+## Download DankTech2
+
+[![Build Status](https://thebusybiscuit.github.io/builds/Sefiraat/DankTech2/master/badge.svg)](https://thebusybiscuit.github.io/builds/Sefiraat/DankTech2/master)
+
 ## Features
 The plugin currently features:
 * 9 tiers of Dank Packs. Each Tier has additional slots available inside it and each slot, in turn, has more space for items.
