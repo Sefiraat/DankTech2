@@ -4,7 +4,6 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import lombok.Getter;
 import net.md_5.bungee.api.ChatColor;
-import org.apache.commons.lang.WordUtils;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.Particle;
@@ -110,7 +109,12 @@ public enum ThemeType {
      */
     @Nonnull
     @ParametersAreNonnullByDefault
-    public static SlimefunItemStack themedSlimefunItemStack(String id, ItemStack itemStack, ThemeType themeType, String name, String... lore) {
+    public static SlimefunItemStack themedSlimefunItemStack(String id,
+                                                            ItemStack itemStack,
+                                                            ThemeType themeType,
+                                                            String name,
+                                                            String... lore
+    ) {
         ChatColor passiveColor = ThemeType.PASSIVE.getColor();
         List<String> finalLore = new ArrayList<>();
         finalLore.add("");
@@ -154,17 +158,36 @@ public enum ThemeType {
         );
     }
 
-    /**
-     * converts given string to Title Case
-     *
-     * @param string The input string
-     * @return A new {@link String} in Title Case
-     */
     @Nonnull
-    @ParametersAreNonnullByDefault
-    public static String toTitleCase(String string) {
-        final char[] delimiters = {' ', '_'};
-        return WordUtils.capitalizeFully(string, delimiters).replace("_", " ");
+    public static String toTitleCase(@Nonnull String string) {
+        return toTitleCase(string, true);
+    }
+
+    @Nonnull
+    public static String toTitleCase(@Nonnull String string, boolean delimiterToSpace) {
+        return toTitleCase(string, delimiterToSpace, " _'-/");
+    }
+
+    @Nonnull
+    public static String toTitleCase(@Nonnull String string, boolean delimiterToSpace, @Nonnull String delimiters) {
+        final StringBuilder builder = new StringBuilder();
+        boolean capNext = true;
+
+        for (char character : string.toCharArray()) {
+            character = (capNext) ? Character.toUpperCase(character) : Character.toLowerCase(character);
+            builder.append(character);
+            capNext = (delimiters.indexOf(character) >= 0);
+        }
+
+        String built = builder.toString();
+
+        if (delimiterToSpace) {
+            final char space = ' ';
+            for (char c : delimiters.toCharArray()) {
+                built = built.replace(c, space);
+            }
+        }
+        return built;
     }
 
     @Nonnull
