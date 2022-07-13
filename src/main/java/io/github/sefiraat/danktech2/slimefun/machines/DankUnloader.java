@@ -80,7 +80,7 @@ public class DankUnloader extends SlimefunItem {
                     final SlimefunItem slimefunItem = SlimefunItem.getByItem(inputItem);
 
                     if (!(slimefunItem instanceof DankPack)) {
-                        clearDisplay(blockMenu);
+                        // clearDisplay(blockMenu);
                         return;
                     }
 
@@ -88,7 +88,7 @@ public class DankUnloader extends SlimefunItem {
                         return;
                     }
 
-                    setDisplay(blockMenu, inputItem.clone());
+                    // setDisplay(blockMenu, inputItem.clone());
 
                     final ItemMeta inputMeta = inputItem.getItemMeta();
                     final DankPack dankPack = (DankPack) slimefunItem;
@@ -196,34 +196,34 @@ public class DankUnloader extends SlimefunItem {
                     }
                 }
 
-                // ArmorStand
-                ArmorStand armorStand;
-                if (standInfoString == null) {
-                    Location spawnLocation = menu.getLocation().clone().add(0.5, -1.3, 0.5);
-                    armorStand = (ArmorStand) spawnLocation.getWorld().spawnEntity(spawnLocation, EntityType.ARMOR_STAND);
-                    ArmourStandUtils.setDisplay(armorStand);
-                    BlockStorage.addBlockInfo(menu.getLocation(), "stand", armorStand.getUniqueId().toString());
-                } else {
-                    armorStand = (ArmorStand) Bukkit.getEntity(UUID.fromString(standInfoString));
-                }
-                armorStands.put(menu.getLocation(), armorStand.getUniqueId());
+//                // ArmorStand
+//                ArmorStand armorStand;
+//                if (standInfoString == null) {
+//                    Location spawnLocation = menu.getLocation().clone().add(0.5, -1.3, 0.5);
+//                    armorStand = (ArmorStand) spawnLocation.getWorld().spawnEntity(spawnLocation, EntityType.ARMOR_STAND);
+//                    ArmourStandUtils.setDisplay(armorStand);
+//                    BlockStorage.addBlockInfo(menu.getLocation(), "stand", armorStand.getUniqueId().toString());
+//                } else {
+//                    armorStand = (ArmorStand) Bukkit.getEntity(UUID.fromString(standInfoString));
+//                }
+//                armorStands.put(menu.getLocation(), armorStand.getUniqueId());
             }
         };
     }
 
-    private ArmorStand getArmorStand(BlockMenu menu) {
-        return (ArmorStand) Bukkit.getEntity(armorStands.get(menu.getLocation()));
-    }
+//    private ArmorStand getArmorStand(BlockMenu menu) {
+//        return (ArmorStand) Bukkit.getEntity(armorStands.get(menu.getLocation()));
+//    }
 
-    private void clearDisplay(BlockMenu menu) {
-        ArmorStand armorStand = getArmorStand(menu);
-        ArmourStandUtils.clearDisplayItem(armorStand);
-    }
+//    private void clearDisplay(BlockMenu menu) {
+//        ArmorStand armorStand = getArmorStand(menu);
+//        ArmourStandUtils.clearDisplayItem(armorStand);
+//    }
 
-    private void setDisplay(BlockMenu menu, ItemStack itemStack) {
-        ArmorStand armorStand = getArmorStand(menu);
-        ArmourStandUtils.setDisplayItem(armorStand, itemStack);
-    }
+//    private void setDisplay(BlockMenu menu, ItemStack itemStack) {
+//        ArmorStand armorStand = getArmorStand(menu);
+//        ArmourStandUtils.setDisplayItem(armorStand, itemStack);
+//    }
 
     private void syncBlockInfo(BlockMenu menu) {
         BlockStorage.addBlockInfo(
@@ -252,7 +252,7 @@ public class DankUnloader extends SlimefunItem {
             @Override
             public void onPlayerBreak(BlockBreakEvent event, ItemStack itemStack, List<ItemStack> drops) {
                 BlockMenu menu = BlockStorage.getInventory(event.getBlock());
-                getArmorStand(menu).remove();
+                // getArmorStand(menu).remove();
                 menu.dropItems(menu.getLocation(), INPUT_SLOT);
                 menu.dropItems(menu.getLocation(), OUTPUT_SLOT);
                 BlockStorage.clearBlockInfo(event.getBlock());
