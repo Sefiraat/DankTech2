@@ -43,17 +43,17 @@ public class PackListener implements Listener {
         final SlimefunItem slimefunItem = SlimefunItem.getByItem(heldItem);
         final Action action = event.getAction();
 
-        if (heldItem.getAmount() > 1) {
-            player.sendMessage(MessageFormat.format(
-                "{0}Packs must be unstacked before use",
-                ThemeType.WARNING.getColor())
-            );
-            return;
-        }
 
         // Check if a dank/trash pack is in the main hand
         if (slimefunItem instanceof DankPack) {
             event.setCancelled(true);
+            if (heldItem.getAmount() > 1) {
+                player.sendMessage(MessageFormat.format(
+                    "{0}Packs must be unstacked before use",
+                    ThemeType.WARNING.getColor())
+                );
+                return;
+            }
 
             final DankPack dankPack = (DankPack) slimefunItem;
             final ItemMeta heldIemMeta = heldItem.getItemMeta();
