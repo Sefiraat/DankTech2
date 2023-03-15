@@ -11,6 +11,7 @@ import io.github.sefiraat.danktech2.slimefun.packs.DankPack;
 import io.github.sefiraat.danktech2.slimefun.packs.TrashPack;
 import io.github.sefiraat.danktech2.theme.ThemeType;
 import io.github.sefiraat.danktech2.utils.Keys;
+import io.github.sefiraat.danktech2.utils.Skulls;
 import io.github.sefiraat.danktech2.utils.datatypes.DataTypeMethods;
 import io.github.sefiraat.danktech2.utils.datatypes.PersistentDankInstanceType;
 import io.github.sefiraat.danktech2.utils.datatypes.PersistentTrashInstanceType;
@@ -27,6 +28,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.inventory.InventoryAction;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -110,6 +113,16 @@ public class PackListener implements Listener {
             }
         }
     }
+
+    @EventHandler
+    public void onCollect(InventoryClickEvent e) {
+        if (e.getView().getTitle().contains("Dank Pack - Tier") ||
+            e.getView().getTitle().contains("Trash Pack - Tier") ||
+            e.getView().getTopInventory().contains(Skulls.GUI_WITHDRAW.getPlayerHead()))
+                if (e.getAction() == InventoryAction.COLLECT_TO_CURSOR) {
+                    e.setCancelled(true);
+                }
+        }
 
     private void incrementSlot(ItemStack heldItem, DankPackInstance dankPackInstance, Player player) {
         int slot = DataTypeMethods.incrementSelectedSlot(heldItem);

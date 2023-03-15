@@ -56,7 +56,7 @@ public class TrashGUI extends ChestMenu {
     private final TrashPack trashPack;
 
     public TrashGUI(TrashPackInstance packInstance, ItemStack itemStack) {
-        super("Dank Pack - Tier " + packInstance.getTier());
+        super("Trash Pack - Tier " + packInstance.getTier());
         this.packInstance = packInstance;
         this.itemStack = itemStack;
         this.trashPack = (TrashPack) SlimefunItem.getByItem(itemStack);
