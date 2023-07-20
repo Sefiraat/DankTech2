@@ -3,11 +3,14 @@ package io.github.sefiraat.danktech2.slimefun.packs;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
+import io.github.thebusybiscuit.slimefun4.core.attributes.DistinctiveItem;
 import io.github.thebusybiscuit.slimefun4.implementation.items.blocks.UnplaceableBlock;
 import lombok.Getter;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.NotNull;
 
-public class TrashPack extends UnplaceableBlock {
+public class TrashPack extends UnplaceableBlock implements DistinctiveItem {
 
     @Getter
     private final int tier;
@@ -18,5 +21,10 @@ public class TrashPack extends UnplaceableBlock {
         super(itemGroup, item, recipeType, recipe);
         this.tier = tier;
         this.slots = tier * 2;
+    }
+
+    @Override
+    public boolean canStack(@NotNull ItemMeta itemMeta, @NotNull ItemMeta itemMeta1) {
+        return itemMeta1.getPersistentDataContainer().equals(itemMeta.getPersistentDataContainer());
     }
 }
