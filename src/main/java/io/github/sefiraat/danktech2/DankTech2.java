@@ -67,7 +67,7 @@ public class DankTech2 extends JavaPlugin implements SlimefunAddon {
         this.supportedPluginManager = new SupportedPluginManager();
         this.runnableManager = new RunnableManager();
 
-        this.getCommand("danktech2").setExecutor(new DankTechMain());
+        this.getCommand("danktech2").setExecutor(new DankTechMain(this));
 
         setupMetrics();
     }
@@ -143,8 +143,8 @@ public class DankTech2 extends JavaPlugin implements SlimefunAddon {
 
                 final ItemMeta itemMeta = heldItem.getItemMeta();
                 final String name = itemMeta.hasDisplayName() ?
-                    itemMeta.getDisplayName() :
-                    ThemeType.toTitleCase(heldItem.getType().toString());
+                                    itemMeta.getDisplayName() :
+                                    ThemeType.toTitleCase(heldItem.getType().toString());
 
                 Integer itemAmount = heldItemValues.get(name);
 

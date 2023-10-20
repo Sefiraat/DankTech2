@@ -2,7 +2,7 @@
 <img src="https://github.com/Sefiraat/DankTech2/blob/master/images/logo/logo_large.png">
 
 
-DankTech2 is a full, Slimefun Only, rewrite of my previous plugin DankTech. DanchTech was itself an attempt to recreate the [Dank Storage](https://www.curseforge.com/minecraft/mc-mods/dank-storage) mod, [/dank/null](https://www.curseforge.com/minecraft/mc-mods/dank-null) and OpenBlocks /dev/null in the form of a plugin.
+DankTech2 is a full, Slimefun Only, rewrite of my previous plugin DankTech. DankTech was itself an attempt to recreate the [Dank Storage](https://www.curseforge.com/minecraft/mc-mods/dank-storage) mod, [/dank/null](https://www.curseforge.com/minecraft/mc-mods/dank-null) and OpenBlocks /dev/null in the form of a plugin.
 
 ## Download DankTech2
 
