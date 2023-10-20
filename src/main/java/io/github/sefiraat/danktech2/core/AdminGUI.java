@@ -108,6 +108,13 @@ public class AdminGUI extends ChestMenu {
                     if (action.isRightClicked()) {
                         p.getInventory().addItem(cloneDank(dank));
                         p.closeInventory();
+                    } else if (action.isShiftClicked()) {
+                        ConfigManager.getInstance().deletePack(dankPackInstance.getId());
+                        p.sendMessage(MessageFormat.format(
+                            "{0}Dank Pack has been deleted. Last user: " + dankPackInstance.getLastUser(),
+                            ThemeType.ERROR.getColor()));
+                        p.closeInventory();
+                        ConfigManager.getInstance().saveAll();
                     } else {
                         DankGUI dankGUI = new DankGUI(dankPackInstance, dank);
                         dankGUI.open(p);
@@ -141,6 +148,7 @@ public class AdminGUI extends ChestMenu {
         lore.add("");
         lore.add(MessageFormat.format("{0}Left Click: {1}Open Dank", ThemeType.CLICK_INFO.getColor(), ThemeType.PASSIVE.getColor()));
         lore.add(MessageFormat.format("{0}Right Click: {1}Clone Dank", ThemeType.CLICK_INFO.getColor(), ThemeType.PASSIVE.getColor()));
+        lore.add(MessageFormat.format("{0}Shift Left Click: {1}Delete Dank", ThemeType.CLICK_INFO.getColor(), ThemeType.PASSIVE.getColor()));
         lore.add("");
         lore.add(MessageFormat.format("{0}Warning - Cloning a DankPack", ThemeType.ERROR.getColor()));
         lore.add(MessageFormat.format("{0}will delete the original and", ThemeType.ERROR.getColor()));
