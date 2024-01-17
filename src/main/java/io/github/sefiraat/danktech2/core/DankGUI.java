@@ -20,6 +20,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.text.MessageFormat;
+import java.util.Arrays;
+
 
 public class DankGUI extends ChestMenu {
 
@@ -80,7 +82,9 @@ public class DankGUI extends ChestMenu {
         }
 
         // Don't let players shift click into the GUI to bypass the handler
-        addPlayerInventoryClickHandler((p, slot, item, action) -> !action.isShiftClicked());
+        addPlayerInventoryClickHandler((p, slot, item, action) ->
+                !action.isShiftClicked() && Arrays.stream(packInstance.getItems())
+                        .noneMatch(packItem -> packItem != null && item != null && packItem.getType() == item.getType()));
         setupAllItems();
     }
 
