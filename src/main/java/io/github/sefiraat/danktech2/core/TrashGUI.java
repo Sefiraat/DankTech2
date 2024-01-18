@@ -19,6 +19,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.text.MessageFormat;
+import java.util.Arrays;
+
 
 public class TrashGUI extends ChestMenu {
 
@@ -56,7 +58,7 @@ public class TrashGUI extends ChestMenu {
     private final TrashPack trashPack;
 
     public TrashGUI(TrashPackInstance packInstance, ItemStack itemStack) {
-        super("Dank Pack - Tier " + packInstance.getTier());
+        super("Trash Pack - Tier " + packInstance.getTier());
         this.packInstance = packInstance;
         this.itemStack = itemStack;
         this.trashPack = (TrashPack) SlimefunItem.getByItem(itemStack);
@@ -69,7 +71,10 @@ public class TrashGUI extends ChestMenu {
         }
 
         // Don't let players shift click into the GUI to bypass the handler
-        addPlayerInventoryClickHandler((p, slot, item, action) -> !action.isShiftClicked());
+        // Also don't allow clicks on items that the pack contains; this allows for item duplication
+        addPlayerInventoryClickHandler((p, slot, item, action) ->
+                !action.isShiftClicked() && Arrays.stream(packInstance.getItems())
+                        .noneMatch(packItem -> packItem != null && item != null && packItem.getType() == item.getType()));
         setupAllItems();
     }
 
