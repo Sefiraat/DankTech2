@@ -82,6 +82,7 @@ public class DankGUI extends ChestMenu {
         }
 
         // Don't let players shift click into the GUI to bypass the handler
+        // Also don't allow clicks on items that the pack contains; this allows for item duplication
         addPlayerInventoryClickHandler((p, slot, item, action) ->
                 !action.isShiftClicked() && Arrays.stream(packInstance.getItems())
                         .noneMatch(packItem -> packItem != null && item != null && packItem.getType() == item.getType()));
